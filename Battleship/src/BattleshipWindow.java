@@ -9,6 +9,19 @@ import java.awt.Color;
 import java.awt.Font;
 
 
+public class BattleshipWindow
+{
+    
+   public static void main(String[] args)
+   {
+	   
+	   Guindo window = new Guindo();
+	   window.frame.setVisible(true);
+	   BattleshipMain theGame = new BattleshipMain();    
+       //theGame.playGame();
+   }
+
+}
 
 class Guindo
 {
