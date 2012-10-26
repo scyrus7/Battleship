@@ -6,14 +6,14 @@
 	 */
 	import java.io.*;
 
-	public class Battleship
+	public class BattleshipMain
 	{
 	   BattleshipBoard theBoard;
 
 	   PlayerComputer  theComputer;
 	   PlayerUser      theUser;
 	   
-	   public Battleship()
+	   public BattleshipMain()
 	   {
 	      theBoard    = new BattleshipBoard(10, 10);
 	      theComputer = new PlayerComputer();
@@ -68,10 +68,10 @@
 	      }
 	   }
 	   
-	   public static void main(String[] args)
-	   {
-	      Battleship theGame = new Battleship();
+	//   public static void main(String[] args)
+	//   {
+	//      Battleship theGame = new Battleship();
 	      
-	      theGame.playGame();
-	   }
+	//      theGame.playGame();
+	//   }
 	}
