@@ -1,5 +1,8 @@
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
+
 import java.awt.EventQueue;
 import java.io.*;
 import javax.swing.JLabel;
@@ -13,6 +16,15 @@ import java.awt.Font;
 class BattleshipWindow
 {
 	public JFrame frame;
+	public JTextField BoardWidth;
+	public JTextField BoardHeight;
+	public JLabel label;
+	public JTextField xShip;
+	public JTextField yShip;
+	public JLabel ResultLabel;
+	public JLabel ResultValue;
+	public JButton btnQuit;
+
 	public BattleshipWindow()
 	{
 		initialize("BATTLESHIP GAME");
@@ -31,13 +43,50 @@ class BattleshipWindow
 		lblBattleshipMidterm.setHorizontalAlignment(SwingConstants.CENTER);
 		frame.getContentPane().add(lblBattleshipMidterm);
 		
-		JLabel BoardSizeLabel = new JLabel("Board Size:");
-		BoardSizeLabel.setBounds(70, 64, 81, 16);
-		frame.getContentPane().add(BoardSizeLabel);
+		JLabel XYcoordLabel = new JLabel("Please enter the X/Ycoordinate:");
+		XYcoordLabel.setBounds(56, 112, 198, 16);
+		frame.getContentPane().add(XYcoordLabel);
 		
-		JLabel boardsize = new JLabel(boardsizevalue);
-		boardsize.setBounds(163, 64, 81, 16);
-		frame.getContentPane().add(boardsize);
+		BoardWidth = new JTextField();
+		BoardWidth.setBounds(163, 58, 55, 28);
+		frame.getContentPane().add(BoardWidth);
+		BoardWidth.setColumns(10);
+		
+		BoardHeight = new JTextField();
+		BoardHeight.setColumns(10);
+		BoardHeight.setBounds(249, 58, 55, 28);
+		frame.getContentPane().add(BoardHeight);
+		
+		label = new JLabel("Board Size:");
+		label.setBounds(56, 64, 81, 16);
+		frame.getContentPane().add(label);
+		
+		xShip = new JTextField();
+		xShip.setColumns(10);
+		xShip.setBounds(275, 106, 55, 28);
+		frame.getContentPane().add(xShip);
+		
+		yShip = new JTextField();
+		yShip.setColumns(10);
+		yShip.setBounds(342, 106, 55, 28);
+		frame.getContentPane().add(yShip);
+		
+		JButton btnPlay = new JButton("Play");
+		btnPlay.setBounds(428, 107, 117, 29);
+		frame.getContentPane().add(btnPlay);
+		
+		ResultLabel = new JLabel("Result:");
+		ResultLabel.setBounds(56, 179, 61, 16);
+		frame.getContentPane().add(ResultLabel);
+		
+		ResultValue = new JLabel("");
+		ResultValue.setBounds(129, 179, 61, 16);
+		frame.getContentPane().add(ResultValue);
+		
+		btnQuit = new JButton("Quit");
+		btnQuit.setBounds(428, 398, 117, 29);
+		frame.getContentPane().add(btnQuit);
+
 	} 
 	
 }
