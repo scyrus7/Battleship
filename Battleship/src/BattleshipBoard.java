@@ -6,7 +6,7 @@
  * @author Sam
  *
  */
-class BattleshipBoard
+public class BattleshipBoard
 	{
 	   public static final int  COORD_STATE_BLANK = 0;
 	   public static final int  COORD_STATE_SHIP  = 1;
@@ -49,14 +49,16 @@ class BattleshipBoard
 	      m_shipSize = 0;
 	      m_numHits  = 0;
 
-	      System.out.println("Board size (HxW): " + height + ", " + width);
+	      //System.out.println("Board size (HxW): " + height + ", " + width);
+
 	   }
 	   //
 	   // PlaceShip: Places the ship at specified coordinate.
 	   //
 	   public boolean placeShip(int x, int y, int direction, int size)
 	   {
-	      System.out.println("Specified location: x = " + x + ", y = " + y);                   // Debugging only.
+
+		   System.out.println("Specified location: x = " + x + ", y = " + y);                   // Debugging only.
 	      System.out.println("Direction: " + (direction == SHIP_DIR_HORZ ? "Horz" : "Vert") ); // Debugging only.
 
 	      if ( x >= m_width || y >= m_height ) return false;
