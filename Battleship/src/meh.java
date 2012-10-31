@@ -118,11 +118,11 @@ public class meh {
 		frame.getContentPane().add(btnQuit);
 		
 		JLabel NumShotsLabel = new JLabel("# of shots:");
-		NumShotsLabel.setBounds(56, 255, 81, 16);
+		NumShotsLabel.setBounds(56, 255, 97, 16);
 		frame.getContentPane().add(NumShotsLabel);
 		
 		JLabel ShotsNumber = new JLabel("");
-		ShotsNumber.setBounds(151, 255, 201, 16);
+		ShotsNumber.setBounds(166, 255, 201, 16);
 		frame.getContentPane().add(ShotsNumber);
 		
 		JButton btnPlayAgain = new JButton("Play Again");

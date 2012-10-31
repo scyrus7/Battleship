@@ -127,13 +127,14 @@ import javax.swing.SwingConstants;
 			frame.getContentPane().add(yShip);
 			
 			// NUMBER OF SHOTS
-			JLabel NumShotsLabel = new JLabel("# of shots:");
-			NumShotsLabel.setBounds(56, 255, 81, 16);
+			final JLabel NumShotsLabel = new JLabel("Number of shots:");
+			NumShotsLabel.setBounds(56, 255, 120, 16);
 			frame.getContentPane().add(NumShotsLabel);
 			final JLabel ShotsNumber = new JLabel("");
-			ShotsNumber.setBounds(151, 255, 201, 16);
+			ShotsNumber.setBounds(190, 255, 201, 16);
 			frame.getContentPane().add(ShotsNumber);
-						
+            NumShotsLabel.setVisible(false);
+            ShotsNumber.setVisible(false);
 			
 			// PLAY BUTTON
 			final JButton btnPlay = new JButton("Play");
@@ -175,7 +176,9 @@ import javax.swing.SwingConstants;
 			                 if ( theBoard.hasShipBeenSunk() )
 			                 {
 				                 ResultValue.setText("YOU'VE SUNK THE BATTLESHIP!");
-			                     String mitio;
+				                 NumShotsLabel.setVisible(true);
+				                 ShotsNumber.setVisible(true);			                     
+				                 String mitio;
 			                     mitio = Integer.toString(numShots);
 				                 ShotsNumber.setText(mitio);
 				                 btnPlay.setEnabled(false);
@@ -200,11 +203,11 @@ import javax.swing.SwingConstants;
 			});
 			
 			// PLAY RESULT
-			ResultLabel = new JLabel("Result:");
-			ResultLabel.setBounds(56, 214, 61, 16);
+			ResultLabel = new JLabel("Attack Result:");
+			ResultLabel.setBounds(56, 214, 120, 16);
 			frame.getContentPane().add(ResultLabel);			
 			ResultValue = new JLabel("");
-			ResultValue.setBounds(129, 214, 370, 16);
+			ResultValue.setBounds(190, 214, 400, 16);
 			frame.getContentPane().add(ResultValue);
 			
 			
