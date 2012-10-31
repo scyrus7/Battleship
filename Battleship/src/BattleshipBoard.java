@@ -24,19 +24,20 @@ public class BattleshipBoard
 	   private int m_shipSize;
 	   private int m_numHits;
 	   
-	   //
-	   // CONSTRUCTOR: Creates the board and sets all coordinates to 'BLANK'.
-	   //
+	   // creates board
 	   public BattleshipBoard(int width, int height)
 	   {
-	      if ( width  < 0 || width  > 40 ) 
+		  // constraints range boundaries 
+		  if ( width  < 0 || width  > 40 ) 
 	    	  width  = 40;
 	      if ( height < 0 || height > 40 ) 
 	    	  height = 40;
 	      
+	      // sets the board width and height
 	      m_width  = width;
 	      m_height = height;
 
+	      // creates board array and sets values to blank
 	      m_board = new int[m_height][m_width];
 	      
 	      for ( int i = 0; i < m_height; i++ )
@@ -52,13 +53,15 @@ public class BattleshipBoard
 	      //System.out.println("Board size (HxW): " + height + ", " + width);
 
 	   }
+
+	   
 	   //
 	   // PlaceShip: Places the ship at specified coordinate.
 	   //
 	   public boolean placeShip(int x, int y, int direction, int size)
 	   {
 
-		   System.out.println("Specified location: x = " + x + ", y = " + y);                   // Debugging only.
+		  System.out.println("Specified location: x = " + x + ", y = " + y);                   // Debugging only.
 	      System.out.println("Direction: " + (direction == SHIP_DIR_HORZ ? "Horz" : "Vert") ); // Debugging only.
 
 	      if ( x >= m_width || y >= m_height ) return false;
