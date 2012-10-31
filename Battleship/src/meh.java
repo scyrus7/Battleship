@@ -109,7 +109,7 @@ public class meh {
 		frame.getContentPane().add(ResultLabel);
 		
 		ResultValue = new JLabel("");
-		ResultValue.setBounds(151, 214, 201, 16);
+		ResultValue.setBounds(151, 214, 335, 16);
 		frame.getContentPane().add(ResultValue);
 		
 		// QUIT BUTTON

@@ -204,7 +204,7 @@ import javax.swing.SwingConstants;
 			ResultLabel.setBounds(56, 214, 61, 16);
 			frame.getContentPane().add(ResultLabel);			
 			ResultValue = new JLabel("");
-			ResultValue.setBounds(129, 214, 201, 16);
+			ResultValue.setBounds(129, 214, 370, 16);
 			frame.getContentPane().add(ResultValue);
 			
 			
