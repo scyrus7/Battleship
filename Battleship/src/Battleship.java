@@ -21,12 +21,8 @@ import javax.swing.SwingConstants;
 
 	   // GUI
 		private static JFrame frame;
-		private static JTextField BoardWidth;
-		private static JTextField BoardHeight;
-		private static JLabel label;
 		private static JTextField xShip;
 		private static JTextField yShip;
-		private static JLabel ResultLabel;
 		private static JLabel ResultValue;
 		private static JButton btnQuit;
 	    public static final int SHOT_RESULT_HIT      = 1;
@@ -72,7 +68,12 @@ import javax.swing.SwingConstants;
 	   
 	   public Battleship()
 	   {
-		  theBoard    = new BattleshipBoard(10, 10);
+		  String myX = JOptionPane.showInputDialog("Enter the width of the board: ");		
+		  String myY = JOptionPane.showInputDialog("Enter the height of the board: ");
+		  int x = Integer.parseInt(myX);
+		  int y = Integer.parseInt(myY);
+
+		  theBoard    = new BattleshipBoard(x, y);
 	      theComputer = new PlayerComputer();
 	   }
 
@@ -91,41 +92,54 @@ import javax.swing.SwingConstants;
 			
 			// HEADER TITLE
 			JLabel lblBattleshipMidterm = new JLabel("BATTLESHIP MIDTERM");
-			lblBattleshipMidterm.setBounds(0, 0, 600, 20);
-			lblBattleshipMidterm.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+			lblBattleshipMidterm.setBounds(0, 20, 600, 30);
+			lblBattleshipMidterm.setFont(new Font("Arial", Font.BOLD, 30));
 			lblBattleshipMidterm.setForeground(Color.BLUE);
 			lblBattleshipMidterm.setHorizontalAlignment(SwingConstants.CENTER);
 			frame.getContentPane().add(lblBattleshipMidterm);
 			
-			JLabel XYcoordLabel = new JLabel("Please enter the X/Ycoordinate:");
-			XYcoordLabel.setBounds(56, 147, 198, 16);
-			frame.getContentPane().add(XYcoordLabel);
-			
-			BoardWidth = new JTextField();
-			BoardWidth.setBounds(163, 58, 55, 28);
-			frame.getContentPane().add(BoardWidth);
-			BoardWidth.setColumns(10);
-			
-			BoardHeight = new JTextField();
-			BoardHeight.setColumns(10);
-			BoardHeight.setBounds(249, 58, 55, 28);
-			frame.getContentPane().add(BoardHeight);
-			
-			label = new JLabel("Board Size:");
-			label.setBounds(56, 64, 81, 16);
-			frame.getContentPane().add(label);
+			JLabel XcoordLabel = new JLabel("Longitude:");
+			XcoordLabel.setFont(new Font("Arial", Font.BOLD, 20));
+			XcoordLabel.setBounds(126, 112, 103, 20);
+			frame.getContentPane().add(XcoordLabel);
 			
 			xShip = new JTextField();
 			xShip.setColumns(10);
-			xShip.setBounds(275, 141, 55, 28);
+			xShip.setHorizontalAlignment(SwingConstants.CENTER);
+			xShip.setFont(new Font("Arial Black", Font.BOLD, 26));			
+			xShip.setBounds(126, 140, 103, 61);
 			frame.getContentPane().add(xShip);
 			
 			
+			JLabel YcoordLabel = new JLabel("Latitude:");
+			YcoordLabel.setFont(new Font("Arial", Font.BOLD, 20));
+			YcoordLabel.setBounds(275, 112, 103, 20);
+			frame.getContentPane().add(YcoordLabel);
+
 			yShip = new JTextField();
 			yShip.setColumns(10);
-			yShip.setBounds(342, 141, 55, 28);
+			yShip.setHorizontalAlignment(SwingConstants.CENTER);
+			yShip.setFont(new Font("Arial Black", Font.BOLD, 26));
+			yShip.setBounds(275, 140, 103, 61);
 			frame.getContentPane().add(yShip);
 			
+    		// MISS IMAGE
+			final JLabel missImage = new JLabel(new ImageIcon("/Users/wonitta/projects/Battleship/Battleship/miss.png"));
+    		missImage.setVerticalAlignment(SwingConstants.TOP);
+    		missImage.setLocation(275, 206);
+    		missImage.setSize(100, 37);
+    		frame.getContentPane().add(missImage);
+    		missImage.setVisible(false);
+			
+    		// HIT IMAGE
+			final JLabel hitImage = new JLabel(new ImageIcon("/Users/wonitta/projects/Battleship/Battleship/hit.png"));
+    		hitImage.setVerticalAlignment(SwingConstants.TOP);
+    		hitImage.setLocation(275, 206);
+    		hitImage.setSize(100, 96);
+    		frame.getContentPane().add(hitImage);
+    		hitImage.setVisible(false);
+
+    		
 			// NUMBER OF SHOTS
 			final JLabel NumShotsLabel = new JLabel("Number of shots:");
 			NumShotsLabel.setBounds(56, 255, 120, 16);
@@ -137,10 +151,12 @@ import javax.swing.SwingConstants;
             ShotsNumber.setVisible(false);
 			
 			// PLAY BUTTON
-			final JButton btnPlay = new JButton("Play");
-			btnPlay.setBounds(428, 142, 117, 29);
-			frame.getContentPane().add(btnPlay);
-
+    		final JButton btnPlay = new JButton("Attack!");
+    		btnPlay.setFont(new Font("Arial", Font.BOLD, 20));
+    		btnPlay.setBounds(428, 142, 117, 59);
+    		frame.getContentPane().add(btnPlay);
+			
+			
 			// PLAY AGAIN BUTTON
 			final JButton btnPlayAgain = new JButton("Play Again");
 			btnPlayAgain.setBounds(306, 398, 117, 29);
@@ -173,9 +189,13 @@ import javax.swing.SwingConstants;
 			            case SHOT_RESULT_HIT:         
 			                 numShots++;
 			                 ResultValue.setText("HIT!!");
+			                 missImage.setVisible(false);
+			                 hitImage.setVisible(true);			                 
 			                 if ( theBoard.hasShipBeenSunk() )
 			                 {
 				                 ResultValue.setText("YOU'VE SUNK THE BATTLESHIP!");
+				                 missImage.setVisible(false);
+				                 hitImage.setVisible(false);			            				            	
 				                 NumShotsLabel.setVisible(true);
 				                 ShotsNumber.setVisible(true);			                     
 				                 String mitio;
@@ -185,15 +205,21 @@ import javax.swing.SwingConstants;
 				                 btnPlayAgain.setVisible(true);               
 			                 }
 			                 break;
-			            case SHOT_RESULT_MISS:         
-			                 ResultValue.setText("MISS!!");
-			                 numShots++;
+			            case SHOT_RESULT_MISS: 	
+			                hitImage.setVisible(false);			        		
+			            	missImage.setVisible(true);
+			            	ResultValue.setText("MISS!!");
+			                 numShots++;			                 
 			                 break;
 			            case SHOT_RESULT_INVALID:
+			                 missImage.setVisible(false);
+			                 hitImage.setVisible(false);			            				            	
 			                 ResultValue.setText("You have specified an invalid coordinate.");
 			                 break;
-			            case SHOT_RESULT_USED:         
-			                 ResultValue.setText("That coordinate has already been used.");
+			            case SHOT_RESULT_USED: 
+			                 missImage.setVisible(false);
+			                 hitImage.setVisible(false);			            				            			            	
+			                 ResultValue.setText("You already took that shot");
 			                 break;
 			         }
 					xShip.setText(null);
@@ -203,11 +229,9 @@ import javax.swing.SwingConstants;
 			});
 			
 			// PLAY RESULT
-			ResultLabel = new JLabel("Attack Result:");
-			ResultLabel.setBounds(56, 214, 120, 16);
-			frame.getContentPane().add(ResultLabel);			
 			ResultValue = new JLabel("");
-			ResultValue.setBounds(190, 214, 400, 16);
+			ResultValue.setBounds(190, 214, 400, 30);
+			ResultValue.setFont(new Font("Arial", Font.BOLD, 24));
 			frame.getContentPane().add(ResultValue);
 			
 			
