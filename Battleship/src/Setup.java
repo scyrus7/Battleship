@@ -1,4 +1,4 @@
-	class PlayerComputer
+	class Setup
 	{
 
 	   boolean placeShip(BattleshipBoard board, int shipSize)

@@ -17,19 +17,22 @@ import javax.swing.SwingConstants;
 	public class Battleship
 	{
 	   static BattleshipBoard theBoard;
-	   PlayerComputer  theComputer;
+	   Setup  theSetup;
 
-	   // GUI
+	   // GUI COMPONENTS
 		private static JFrame frame;
 		private static JTextField xShip;
 		private static JTextField yShip;
 		private static JLabel ResultValue;
 		private static JButton btnQuit;
-	    public static final int SHOT_RESULT_HIT      = 1;
+	    
+		// ATTACK STATES
+		public static final int SHOT_RESULT_HIT      = 1;
 	    public static final int SHOT_RESULT_MISS     = 2;
 	    public static final int SHOT_RESULT_INVALID  = 3;
 	    public static final int SHOT_RESULT_USED     = 4;
 	    public static final int SHOT_RESULT_QUIT     = 5;
+	    
 	    static int numShots = 0;
  
 	   
@@ -41,17 +44,18 @@ import javax.swing.SwingConstants;
 		   startGame();
 	   }
 	   
-	@SuppressWarnings("static-access")
-	public static void startGame()
+	   // SETS UP THE GAME
+	   @SuppressWarnings("static-access")
+	   public static void startGame()
 	   {
 		   Battleship theGame = new Battleship();    
 		   theGame.frame.setVisible(true);
 		   theGame.playGame();
 	   }
 	   
+	   // EXECUTES ATTACK
 	   public static int takeShot(BattleshipBoard board, int xCoord, int yCoord)
 	   {
-	      // Ask the user to enter the x coordinate.
 	      switch ( board.shootAtShip(xCoord, yCoord) )
 	      {
 	         case BattleshipBoard.COORD_STATE_MISS: 
@@ -60,30 +64,32 @@ import javax.swing.SwingConstants;
 	        	 return SHOT_RESULT_HIT;
 	         case -2:                              
 	        	 return SHOT_RESULT_USED;
-	      }
-	      
+	      }	      
 	      return SHOT_RESULT_INVALID;
 	   }
 
 	   
 	   public Battleship()
-	   {
+	   {	  
+		  // INPUT BOARD SIZE
 		  String myX = JOptionPane.showInputDialog("Enter the width of the board: ");		
 		  String myY = JOptionPane.showInputDialog("Enter the height of the board: ");
 		  int x = Integer.parseInt(myX);
 		  int y = Integer.parseInt(myY);
 
 		  theBoard    = new BattleshipBoard(x, y);
-	      theComputer = new PlayerComputer();
+	      theSetup = new Setup();
 	   }
 
+	   // GETS THE GAME GOING PASSING THE SHIP SIZE
 	   public void playGame()
 	   {
 	      int shipSize = 4;
-	      theComputer.placeShip(theBoard, shipSize);
+	      theSetup.placeShip(theBoard, shipSize);	      
 	   }
 
-		public static void initializeGUI() {
+	   // GETS THE GUI GOING AND SETS UP LISTENERS AND EVENTS
+	   public static void initializeGUI() {
 
 			frame = new JFrame();
 			frame.setBounds(100, 100, 600, 500);
@@ -103,6 +109,7 @@ import javax.swing.SwingConstants;
 			XcoordLabel.setBounds(126, 112, 103, 20);
 			frame.getContentPane().add(XcoordLabel);
 			
+			// LONGITUDE
 			xShip = new JTextField();
 			xShip.setColumns(10);
 			xShip.setHorizontalAlignment(SwingConstants.CENTER);
@@ -110,7 +117,7 @@ import javax.swing.SwingConstants;
 			xShip.setBounds(126, 140, 103, 61);
 			frame.getContentPane().add(xShip);
 			
-			
+			// LATITUDE
 			JLabel YcoordLabel = new JLabel("Latitude:");
 			YcoordLabel.setFont(new Font("Arial", Font.BOLD, 20));
 			YcoordLabel.setBounds(275, 112, 103, 20);
@@ -126,7 +133,7 @@ import javax.swing.SwingConstants;
     		// MISS IMAGE
 			final JLabel missImage = new JLabel(new ImageIcon("/Users/wonitta/projects/Battleship/Battleship/miss.png"));
     		missImage.setVerticalAlignment(SwingConstants.TOP);
-    		missImage.setLocation(275, 206);
+    		missImage.setLocation(275, 280);
     		missImage.setSize(100, 37);
     		frame.getContentPane().add(missImage);
     		missImage.setVisible(false);
@@ -134,18 +141,21 @@ import javax.swing.SwingConstants;
     		// HIT IMAGE
 			final JLabel hitImage = new JLabel(new ImageIcon("/Users/wonitta/projects/Battleship/Battleship/hit.png"));
     		hitImage.setVerticalAlignment(SwingConstants.TOP);
-    		hitImage.setLocation(275, 206);
+    		hitImage.setLocation(275, 280);
     		hitImage.setSize(100, 96);
     		frame.getContentPane().add(hitImage);
     		hitImage.setVisible(false);
 
     		
 			// NUMBER OF SHOTS
-			final JLabel NumShotsLabel = new JLabel("Number of shots:");
-			NumShotsLabel.setBounds(56, 255, 120, 16);
+			final JLabel NumShotsLabel = new JLabel(" TRIES TOOK TO SINK IT!");
+			NumShotsLabel.setFont(new Font("Arial", Font.BOLD, 24));		
+			NumShotsLabel.setBounds(150, 340, 400, 30);
 			frame.getContentPane().add(NumShotsLabel);
 			final JLabel ShotsNumber = new JLabel("");
-			ShotsNumber.setBounds(190, 255, 201, 16);
+			
+			ShotsNumber.setBounds(126, 340, 100, 30);
+			ShotsNumber.setFont(new Font("Arial", Font.BOLD, 24));
 			frame.getContentPane().add(ShotsNumber);
             NumShotsLabel.setVisible(false);
             ShotsNumber.setVisible(false);
@@ -171,12 +181,15 @@ import javax.swing.SwingConstants;
 					yShip.setText(null);
 					ResultValue.setText(null);
 					ShotsNumber.setText(null);
+	                NumShotsLabel.setVisible(false);
+	                ShotsNumber.setVisible(false);			                     					
 					startGame();					
 					btnPlay.setEnabled(true);
 				 }
 			});
 			
 			
+			// PLAY ACTION
 			btnPlay.addActionListener(new ActionListener() 
 			{
 				public void actionPerformed(ActionEvent play) 
@@ -184,6 +197,7 @@ import javax.swing.SwingConstants;
 					int xCoord = Integer.parseInt(xShip.getText());
 					int yCoord = Integer.parseInt(yShip.getText());
 				    
+					// ATTACK CRITERIA
 					switch ( takeShot(theBoard, xCoord, yCoord) )
 			         {
 			            case SHOT_RESULT_HIT:         
@@ -191,6 +205,7 @@ import javax.swing.SwingConstants;
 			                 ResultValue.setText("HIT!!");
 			                 missImage.setVisible(false);
 			                 hitImage.setVisible(true);			                 
+			                 // CHECKS FOR THE SUNK
 			                 if ( theBoard.hasShipBeenSunk() )
 			                 {
 				                 ResultValue.setText("YOU'VE SUNK THE BATTLESHIP!");
@@ -214,7 +229,7 @@ import javax.swing.SwingConstants;
 			            case SHOT_RESULT_INVALID:
 			                 missImage.setVisible(false);
 			                 hitImage.setVisible(false);			            				            	
-			                 ResultValue.setText("You have specified an invalid coordinate.");
+			                 ResultValue.setText("Invalid Coordinate");
 			                 break;
 			            case SHOT_RESULT_USED: 
 			                 missImage.setVisible(false);
@@ -228,9 +243,9 @@ import javax.swing.SwingConstants;
 				}
 			});
 			
-			// PLAY RESULT
+			// ATTACK RESULT
 			ResultValue = new JLabel("");
-			ResultValue.setBounds(190, 214, 400, 30);
+			ResultValue.setBounds(126, 280, 400, 30);
 			ResultValue.setFont(new Font("Arial", Font.BOLD, 24));
 			frame.getContentPane().add(ResultValue);
 			

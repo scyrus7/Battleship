@@ -104,8 +104,8 @@ public class meh {
 		btnQuit.setBounds(428, 398, 117, 29);
 		frame.getContentPane().add(btnQuit);
 		
-		JLabel NumShotsLabel = new JLabel("# of shots:");
-		NumShotsLabel.setBounds(56, 255, 97, 16);
+		JLabel NumShotsLabel = new JLabel("IT TOOK");
+		NumShotsLabel.setBounds(115, 366, 138, 16);
 		frame.getContentPane().add(NumShotsLabel);
 		
 		JLabel ShotsNumber = new JLabel("");
@@ -119,7 +119,7 @@ public class meh {
 		//ImageIcon image = new ImageIcon("icon.png");
 		JLabel imageLabel = new JLabel(new ImageIcon("/Users/wonitta/projects/Battleship/Battleship/miss.png"));
 		imageLabel.setVerticalAlignment(SwingConstants.TOP);
-		imageLabel.setLocation(231, 247);
+		imageLabel.setLocation(232, 255);
 		imageLabel.setSize(81, 37);
 		frame.getContentPane().add(imageLabel);
 		

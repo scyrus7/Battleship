@@ -24,20 +24,21 @@ public class BattleshipBoard
 	   private int m_shipSize;
 	   private int m_numHits;
 	   
-	   // creates board
+	   
+	   // SETUP BOARD
 	   public BattleshipBoard(int width, int height)
 	   {
-		  // constraints range boundaries 
+		  // CONSTRAINGS RANGE BOUNDARIES 
 		  if ( width  < 0 || width  > 40 ) 
 	    	  width  = 40;
 	      if ( height < 0 || height > 40 ) 
 	    	  height = 40;
 	      
-	      // sets the board width and height
+	      // SETS THE BOARD WIDTH AND HEIGHT
 	      m_width  = width;
 	      m_height = height;
 
-	      // creates board array and sets values to blank
+	      // CREATES BOARD ARRAYS AND SETS VALUES TO EMPTY
 	      m_board = new int[m_height][m_width];
 	      
 	      for ( int i = 0; i < m_height; i++ )
@@ -55,15 +56,23 @@ public class BattleshipBoard
 	   }
 
 	   
-	   //
-	   // PlaceShip: Places the ship at specified coordinate.
-	   //
+	   // PLACE THE SHIP AT COORDINATES 
 	   public boolean placeShip(int x, int y, int direction, int size)
 	   {
 
-		  System.out.println("Specified location: x = " + x + ", y = " + y);                   // Debugging only.
-	      System.out.println("Direction: " + (direction == SHIP_DIR_HORZ ? "Horz" : "Vert") ); // Debugging only.
-
+		  System.out.println("Specified location: x = " + x + ", y = " + y);                   
+	      System.out.println("Direction: " + (direction == SHIP_DIR_HORZ ? "Horz" : "Vert") ); 
+		  
+		  /*
+		  if (direction==SHIP_DIR_HORZ)
+		  {
+			  orientation = "The ship is placed horizontally";
+		  }
+		  else
+		  {
+			  orientation = "The ship is placed vertically";			  
+		  }*/
+		  
 	      if ( x >= m_width || y >= m_height ) return false;
 	      
 	      if ( direction == SHIP_DIR_HORZ )
@@ -79,11 +88,12 @@ public class BattleshipBoard
 	   
 	      m_shipSize = size;
 	      
+	      // SET THE COORDINATES WHERE THE SHIP IS PLACE AT BASED ON SIZE
 	      for ( int i = 0; i < size; i++ )
 	      {
 	         m_board[y][x] = COORD_STATE_SHIP;
 	         
-	         System.out.println("Marking Coord: x = " + x + ", y = " + y); // Debugging only.
+	         System.out.println("Marking Coord: x = " + x + ", y = " + y); 
 	         
 	         if ( direction == SHIP_DIR_HORZ )
 	        	 x++;
@@ -93,15 +103,15 @@ public class BattleshipBoard
 	      
 	      return true; 
 	   }
-	   //
-	   // shootAtShip: Called to take a shot at the ship on the board. The board will return
-	   // a status indicating how the shot went.
-	   //
+
+	   // EXECUTES ATTACK AND RETURNS ATTACK RESULT
 	   public int shootAtShip(int x, int y)
 	   {
-	      if ( x >= m_width || y >= m_height ) 
+	      // INVALID SHOT OUTSIDE THE BOARD
+		  if ( x >= m_width || y >= m_height ) 
 	    	  return -1;
-	      
+
+		  // SHOT ALREADY TRIED
 	      if ( m_board[y][x] == COORD_STATE_HIT || m_board[y][x] == COORD_STATE_MISS )
 	    	  return -2;
 	      
@@ -118,11 +128,13 @@ public class BattleshipBoard
 	      return m_board[y][x];
 	   }
 	   
+	   // DETERMINES IF SHIP HAS BEEN SUNK BASED ON THE SIZE - RETURNS TRUE
 	   public boolean hasShipBeenSunk()
 	   {
 	      return (boolean)(m_numHits == m_shipSize);
 	   }
 	   
+	   // BOARD GETTERS
 	   public int getWidth() 
 	   {
 		   return m_width;  
